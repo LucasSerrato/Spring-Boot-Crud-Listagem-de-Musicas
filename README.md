@@ -10,21 +10,21 @@
 
 <h2>🛠️ Tecnologias utilizadas e suas funções</h2>
 <ul>
-    <li><strong>Java 21:</strong> Linguagem orientada a objetos robusta, utilizada para implementar toda a lógica de backend. A versão 21 traz melhorias de performance e segurança, sendo a mais atual recomendada pelo Spring Boot 3.</li>
+  Java 21:</strong> Linguagem orientada a objetos robusta, utilizada para implementar toda a lógica de backend. A versão 21 traz melhorias de performance e segurança, sendo a mais atual recomendada pelo Spring Boot 3.
 
-    <li><strong>Spring Boot 3.4.6:</strong> Framework que simplifica o desenvolvimento de aplicações Java. Ele permite criar aplicações web com mínimo de configuração e embutindo um servidor (Tomcat), facilitando o desenvolvimento e a execução.</li>
+  Spring Boot 3.4.6:</strong> Framework que simplifica o desenvolvimento de aplicações Java. Ele permite criar aplicações web com mínimo de configuração e embutindo um servidor (Tomcat), facilitando o desenvolvimento e a execução.
 
-    <li><strong>Spring Web:</strong> Módulo do Spring responsável por lidar com requisições HTTP (GET, POST, PUT, DELETE). É ele que transforma métodos Java em endpoints REST que podem ser acessados pelo frontend.</li>
+Spring Web:</strong> Módulo do Spring responsável por lidar com requisições HTTP (GET, POST, PUT, DELETE). É ele que transforma métodos Java em endpoints REST que podem ser acessados pelo frontend.
 
-    <li><strong>Spring Data JPA:</strong> Abstrai o uso do banco de dados e permite acessar, salvar e atualizar informações com apenas uma interface (Repository), sem escrever SQL manual. Ele usa o padrão ORM (Mapeamento Objeto-Relacional) com a biblioteca Hibernate.</li>
+   Spring Data JPA:</strong> Abstrai o uso do banco de dados e permite acessar, salvar e atualizar informações com apenas uma interface (Repository), sem escrever SQL manual. Ele usa o padrão ORM (Mapeamento Objeto-Relacional) com a biblioteca Hibernate.
 
-    <li><strong>Jakarta Bean Validation:</strong> Realiza a validação de campos obrigatórios automaticamente no backend usando anotações como <code>@NotBlank</code> e <code>@Min</code>. Isso garante que apenas dados válidos sejam aceitos pela API.</li>
+ Jakarta Bean Validation:</strong> Realiza a validação de campos obrigatórios automaticamente no backend usando anotações como <code>@NotBlank</code> e <code>@Min</code>. Isso garante que apenas dados válidos sejam aceitos pela API.
 
-    <li><strong>H2 Database:</strong> Banco de dados relacional leve e embutido. Foi configurado para persistir os dados em arquivo (e não apenas em memória), garantindo que músicas cadastradas permaneçam salvas mesmo após reiniciar o sistema.</li>
+H2 Database:</strong> Banco de dados relacional leve e embutido. Foi configurado para persistir os dados em arquivo (e não apenas em memória), garantindo que músicas cadastradas permaneçam salvas mesmo após reiniciar o sistema.
 
-    <li><strong>HTML5 + CSS3:</strong> Utilizados na construção do frontend com estrutura semântica, responsiva e estilizada. Foram usados estilos visuais modernos e modais personalizados sem depender de bibliotecas externas.</li>
+HTML5 + CSS3:</strong> Utilizados na construção do frontend com estrutura semântica, responsiva e estilizada. Foram usados estilos visuais modernos e modais personalizados sem depender de bibliotecas externas.
 
-    <li><strong>JavaScript (Fetch API):</strong> Permite a comunicação entre o frontend e o backend de forma assíncrona e leve, sem recarregar a página. Foi usado para consumir as APIs REST do Spring e manipular dinamicamente os dados.</li>
+JavaScript (Fetch API):</strong> Permite a comunicação entre o frontend e o backend de forma assíncrona e leve, sem recarregar a página. Foi usado para consumir as APIs REST do Spring e manipular dinamicamente os dados.
 </ul>
 
 <h2>📄 Explicação dos principais arquivos</h2>
