@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Música</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f0f2f5, #e9eef3);
+            padding: 40px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-salvar {
+            background-color: #198754;
+            color: white;
+        }
+
+        .btn-salvar:hover {
+            background-color: #157347;
+        }
+
+        .btn-cancelar {
+            background-color: #ccc;
+            color: black;
+        }
+
+        .btn-cancelar:hover {
+            background-color: #bbb;
+        }
+
+        #player {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        iframe {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Editar Música</h1>
+
+<form id="formEditar">
+    <input type="hidden" id="id">
+
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+
+    <label for="artista">Artista:</label>
+    <input type="text" id="artista" name="artista" required>
+
+    <label for="ano">Ano de Lançamento:</label>
+    <input type="number" id="ano" name="ano" min="1900" max="2100" required>
+
+    <label for="linkYoutube">Link do vídeo (YouTube):</label>
+    <input type="text" id="linkYoutube" name="linkYoutube" oninput="atualizarPlayer()" required>
+
+    <div id="player"></div>
+
+    <div class="botoes">
+        <button type="button" class="btn btn-cancelar" onclick="window.location='musicas.html'">Cancelar</button>
+        <button type="submit" class="btn btn-salvar">Salvar</button>
+    </div>
+</form>
+
+<script>
+    const id = new URLSearchParams(window.location.search).get('id');
+
+    function extrairIdYoutube(url) {
+        const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([\w-]{11})/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+    }
+
+    function atualizarPlayer() {
+        const link = document.getElementById('linkYoutube').value.trim();
+        const playerDiv = document.getElementById('player');
+        const videoId = extrairIdYoutube(link);
+
+        if (videoId) {
+            playerDiv.innerHTML = `
+                <iframe width="100%" height="315"
+                    src="https://www.youtube.com/embed/${videoId}"
+                    style="border:0;" allowfullscreen>
+                </iframe>
+            `;
+        } else {
+            playerDiv.innerHTML = '';
+        }
+    }
+
+    // Preenche dados ao carregar
+    fetch(`/api/musicas/${id}`)
+        .then(res => {
+            if (!res.ok) throw new Error('Erro ao buscar música');
+            return res.json();
+        })
+        .then(m => {
+            document.getElementById('id').value = m.id;
+            document.getElementById('titulo').value = m.titulo;
+            document.getElementById('artista').value = m.artista;
+            document.getElementById('ano').value = m.anoLancamento;
+            document.getElementById('linkYoutube').value = m.linkYoutube || '';
+            atualizarPlayer();
+        })
+        .catch(err => {
+            alert('Erro ao carregar dados: ' + err.message);
+        });
+
+    // Envia atualização
+    document.getElementById('formEditar').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const anoInput = document.getElementById('ano').value;
+        const ano = anoInput ? parseInt(anoInput, 10) : null;
+
+        const musica = {
+            id: document.getElementById('id').value,
+            titulo: document.getElementById('titulo').value.trim(),
+            artista: document.getElementById('artista').value.trim(),
+            anoLancamento: ano,
+            linkYoutube: document.getElementById('linkYoutube').value.trim()
+        };
+
+        fetch(`/api/musicas/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(musica)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('Erro ao atualizar');
+                alert('Música atualizada com sucesso!');
+                window.location = 'musicas.html';
+            })
+            .catch(err => {
+                alert('Erro ao atualizar a música: ' + err.message);
+            });
+    });
+</script>
+
+</body>
+</html>

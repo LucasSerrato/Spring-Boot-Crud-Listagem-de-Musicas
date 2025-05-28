@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lucas Serrato Bonito - TADS DSW 2025-1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f0f2f5, #e9eef3);
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            font-weight: normal;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        a:hover {
+            background-color: #084ec1;
+        }
+
+        .btn-link {
+            width: 100%;
+            max-width: 280px;
+            text-align: center;
+        }
+
+        .observacoes {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-left: 4px solid #0d6efd;
+            border-radius: 8px;
+        }
+
+        .observacoes h3 {
+            margin-top: 0;
+            color: #0d6efd;
+            font-size: 1.2rem;
+        }
+
+        ul {
+            margin: 10px 0 0 20px;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Listagem e Inclusão de Músicas</h1>
+<h2>TADS Atividade Desenvolvimento Web 2025-1 - Turma B</h2>
+
+<p>Nome completo: <strong>Lucas Serrato Bonito</strong></p>
+<p>Está cursando PI4 neste semestre? <strong>NÃO</strong></p>
+
+<a href="musicas.html" class="btn-link">🎵 Acessar listagem de músicas</a><br>
+<a href="readme.html" class="btn-link">📘 Ver README do projeto</a>
+
+<div class="observacoes">
+    <h3>📌 Observações sobre o desenvolvimento</h3>
+    <p>O projeto foi desenvolvido com base nas orientações do professor e nos requisitos da atividade. Todas as funcionalidades foram implementadas conforme solicitado.</p>
+
+    <p><strong>✅ Tecnologias utilizadas:</strong></p>
+    <ul>
+        <li>Java 21</li>
+        <li>Spring Boot 3.4.6</li>
+        <li>Banco de dados H2 com persistência em arquivo</li>
+        <li>Jakarta Validation (validação de campos obrigatórios)</li>
+        <li>API REST com Spring Data JPA</li>
+        <li>Frontend com HTML5, CSS3 e JavaScript puro (Fetch API)</li>
+        <li>Layout responsivo e estilizado sem frameworks externos</li>
+        <li>Desenvolvido no IntelliJ IDEA</li>
+    </ul>
+
+    <p><strong>🛠️ Instruções de uso:</strong></p>
+    <ul>
+        <li>1. Execute a aplicação Spring Boot no IntelliJ: <code>MusicasApplication.java</code></li>
+        <li>2. Acesse <strong><code>http://localhost:8080/index.html</code></strong> no navegador</li>
+        <li>3. Clique em "Acessar listagem de músicas"</li>
+        <li>4. Cadastre músicas clicando em <strong>“+ Incluir nova música”</strong></li>
+        <li>5. Os dados serão gravados no banco H2 local (arquivo persistente)</li>
+        <li>6. Evite abrir os arquivos HTML diretamente com duplo clique ou por Live Server</li>
+        <li>7. Para acessar o banco de dados do projeto siga as instruções do arquivo application.properties</li>
+        <li>8. Para acessar o projeto, sugiro utilizar o IntelliJ IDEA</li>
+    </ul>
+
+    <p>Todos os arquivos HTML foram colocados corretamente no diretório <code>/src/main/resources/static</code>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Listagem de Músicas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f0f2f5, #e6ecf0);
+            padding: 40px;
+            max-width: 960px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        #mensagem {
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        #mensagem.sucesso {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
+
+        #mensagem.erro {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #20232a;
+            color: #fff;
+            text-align: left;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 30px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-voltar {
+            background-color: #6c757d;
+        }
+
+        .btn-voltar:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        #vazio {
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+            font-size: 1rem;
+        }
+
+        iframe {
+            max-width: 100%;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .btn-acao {
+            padding: 8px 14px;
+            margin: 4px 0;
+            font-size: 0.9em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            max-width: 100px;
+            transition: background 0.2s ease;
+            font-weight: 600;
+        }
+
+        .btn-acao.editar {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-acao.editar:hover {
+            background-color: #0069d9;
+        }
+
+        .btn-acao.excluir {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-acao.excluir:hover {
+            background-color: #c82333;
+        }
+
+        .botoes-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<h1>🎵 Listagem de Músicas 🎵</h1>
+
+<div id="mensagem"></div>
+
+<table id="tabela" style="display: none;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Artista</th>
+        <th>Ano lançamento</th>
+        <th>Player</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody id="corpoTabela"></tbody>
+</table>
+
+<p id="vazio">Nenhuma música cadastrada ainda.</p>
+
+<div class="botoes-container">
+    <a href="index.html" class="btn btn-voltar">⬅ Voltar</a>
+    <a href="novo.html" class="btn">+ Incluir nova música</a>
+</div>
+
+<script>
+    const tabela = document.getElementById('tabela');
+    const corpo = document.getElementById('corpoTabela');
+    const vazio = document.getElementById('vazio');
+    const mensagem = document.getElementById('mensagem');
+
+    function extrairIdYoutube(url) {
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/);
+        return match ? match[1] : null;
+    }
+
+    fetch('/api/musicas')
+        .then(res => res.json())
+        .then(dados => {
+            if (dados.length === 0) {
+                tabela.style.display = 'none';
+                vazio.style.display = 'block';
+            } else {
+                vazio.style.display = 'none';
+                tabela.style.display = 'table';
+
+                dados.forEach(m => {
+                    const idVideo = extrairIdYoutube(m.linkYoutube || '');
+                    const player = idVideo
+                        ? `<iframe width="250" height="140" src="https://www.youtube.com/embed/${idVideo}" frameborder="0" allowfullscreen></iframe>`
+                        : '—';
+
+                    const linha = document.createElement('tr');
+                    linha.innerHTML = `
+                            <td>${m.id}</td>
+                            <td>${m.titulo}</td>
+                            <td>${m.artista}</td>
+                            <td>${m.anoLancamento}</td>
+                            <td>${player}</td>
+                            <td>
+                                <button onclick="window.location='editar.html?id=${m.id}'" class="btn-acao editar">Editar</button>
+                                <button onclick="excluir(${m.id})" class="btn-acao excluir">Excluir</button>
+                            </td>
+                        `;
+                    corpo.appendChild(linha);
+                });
+            }
+        })
+        .catch(() => {
+            mensagem.textContent = "Erro ao carregar músicas.";
+            mensagem.className = "erro";
+            mensagem.style.display = "block";
+        });
+
+    function excluir(id) {
+        if (confirm("Tem certeza que deseja excluir esta música?")) {
+            fetch('/api/musicas/' + id, { method: 'DELETE' })
+                .then(() => {
+                    alert("Música excluída!");
+                    location.reload();
+                })
+                .catch(() => {
+                    alert("Erro ao excluir música.");
+                });
+        }
+    }
+</script>
+</body>
+</html>
