@@ -74,6 +74,5 @@ JavaScript (Fetch API):</strong> Permite a comunicação entre o frontend e o ba
     <li>Utilizar os links da aplicação para navegar</li>
 </ol>
 
-<a href="index.html" class="btn-voltar">← Voltar para a tela inicial</a>
 </body>
 </html>
