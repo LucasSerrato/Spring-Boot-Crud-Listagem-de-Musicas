@@ -3,7 +3,7 @@
 <h1>📘 README - Sistema de Cadastro de Músicas</h1>
 <p><strong>Autor:</strong> Lucas Serrato Bonito</p>
 <p><strong>Curso:</strong> Análise e Desenvolvimento de Sistemas - Senac Santo Amaro</p>
-<p><strong>Disciplina:</strong> Desenvolvimento de Software para Web (DSW) - 2025/1</p>
+<p><strong>Disciplina:</strong> Desenvolvimento Web (</p>
 
 <h2>🎯 Objetivo do Projeto</h2>
 <p>Este sistema web tem como finalidade demonstrar, na prática, o desenvolvimento completo de uma aplicação web moderna utilizando a stack Java com Spring Boot. O sistema permite <strong>cadastrar, listar, editar e excluir músicas</strong> com integração a um banco de dados relacional, validando as informações obrigatórias e exibindo feedback ao usuário.</p>
